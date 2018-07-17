@@ -7,6 +7,8 @@ const commander = require("commander");
 const package = require("../package.json");
 
 const checkProject = require("./checkFiles").checkProject;
+const createProjectStructure = require("./manager/directories");
+const createProject = require("./manager/installDependencies");
 
 let projectName;
 
@@ -40,6 +42,8 @@ function create(name) {
     fs.ensureDirSync(project);
 
     checkProject(project);
+
+    const written = createProject(createProjectStructure(name), name);
 
     printSuccess(name);
 }
