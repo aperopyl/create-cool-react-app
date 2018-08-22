@@ -25,6 +25,18 @@ const createProjectStructure = (
                 ]
             },
             {
+                name: "public",
+                directories: [
+                    {
+                        name: "assets",
+                        files: [
+                            "react.svg"
+                        ]
+                    }
+                ],
+                files: []
+            },
+            {
                 name: "src",
                 files: [
                     "App.js",
