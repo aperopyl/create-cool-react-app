@@ -1,0 +1,40 @@
+body {
+    font-family: "Comic Sans MS";
+    margin: 0;
+    padding: 0;
+}
+
+.welcome {
+    font-size: 4rem;
+    text-align: center;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg) scale(1);
+    }
+
+    50% {
+        transform: rotate(180deg) scale(0.5);
+    }
+
+    to {
+        transform: rotate(360deg) scale(1);
+    }
+}
+
+header {
+    background-color: #20232A;
+    display: flex;
+    justify-content: center;
+}
+
+footer {
+    text-align: center;
+}
+
+.react {
+    animation: spin 5s linear 0s infinite;
+    width: 150px;
+    height: 150px;
+}

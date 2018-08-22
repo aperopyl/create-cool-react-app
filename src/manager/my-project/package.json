@@ -1,0 +1,11 @@
+{
+  "private": true,
+  "name": "my-project",
+  "version": "1.0.0",
+  "description": "My project created by create-cool-react-app",
+  "scripts": {
+    "start": "webpack-dev-server",
+    "build": "NODE_ENV=production webpack",
+    "build:dev": "webpack"
+  }
+}
