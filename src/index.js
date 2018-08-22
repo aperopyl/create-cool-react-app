@@ -8,7 +8,7 @@ const package = require("../package.json");
 
 const checkProject = require("./checkFiles").checkProject;
 const createProjectStructure = require("./manager/directories");
-const createProject = require("./manager/installDependencies");
+const { install, createProject } = require("./manager/installDependencies");
 
 let projectName;
 
@@ -45,13 +45,31 @@ function create(name) {
 
     const written = createProject(createProjectStructure(name), name);
 
+    install(path.join(process.cwd(), name));
+
     printSuccess(name);
 }
 
 function printSuccess(name) {
+    console.log();
     console.log("Project created successfully!");
     console.log("Start by navigating to the project directory:");
     console.log();
-    console.log(`    ${chalk.bold.green("cd")} ${chalk.cyan(name)}`);
+    console.log(`    ${command("cd", name)}`);
     console.log();
+    console.log("Start the development server:");
+    console.log();
+    console.log(`    ${command("npm", "start")}`);
+    console.log();
+    console.log("Any problems with your project try running:");
+    console.log("It might catch any failed linkages.");
+    console.log();
+    console.log(`    ${command("create-cool-react-app", "--audit", name)}`);
+    console.log();
+}
+
+function command(command, mainArg, ...args) {
+    const argsAndFlags = args.map(arg => chalk.magenta(arg)).join(" ");
+
+    return `${chalk.bold.green(command)} ${chalk.bold.cyan(mainArg)} ${argsAndFlags}`;
 }

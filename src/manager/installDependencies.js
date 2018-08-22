@@ -2,19 +2,51 @@ const path = require("path");
 const fs = require("fs-extra");
 const spawn = require("cross-spawn");
 const chalk = require("chalk");
+const { dependencies, devDependencies } = require("./dependencies");
 
 function install(cwd) {
-    buildCommand(
-        "npm",
+    console.log();
+    console.log("Installing dependencies...");
+
+    runInstall(
+        dependencies,
         cwd,
-        [
-            "install"
-        ]
+        false
+    );
+
+    runInstall(
+        devDependencies,
+        cwd,
+        true
     );
 }
 
-function buildCommand(command, cwd, ...args) {
-    spawn(
+function runInstall(dependencies, installDir, dev = false) {
+    console.log(`Installing ${dev ? "dev" : "main"} dependencies...`);
+
+    const install = [];
+
+    dependencies.forEach(({ name, version }) => {
+        console.log(`    +installing ${chalk.bold.blue(name)} version in range ${chalk.green(version)}...`);
+
+        install.push(`${name}@${version}`);
+    });
+
+    buildCommand(
+        installDir,
+        "npm",
+        [
+            "install",
+            ...install,
+            dev ? "--save-dev" : "--save"
+        ]
+    );
+
+    console.log();
+}
+
+function buildCommand(cwd, command, args) {
+    spawn.sync(
         command,
         args,
         {
@@ -123,4 +155,7 @@ function createProjectInternal(
     return written;
 }
 
-module.exports = createProject;
+module.exports = {
+    install,
+    createProject
+};
