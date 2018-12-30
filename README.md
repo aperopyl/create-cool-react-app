@@ -1,4 +1,4 @@
-# `create-cool-react-app`
+# (DEFUNCT) `create-cool-react-app`
 
 Create *cool* React applications with a starter build configuration that is ready to go out of the box!
 
